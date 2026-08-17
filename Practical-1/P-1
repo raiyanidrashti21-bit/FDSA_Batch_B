@@ -1,0 +1,70 @@
+#include<iostream>
+using namespace std;
+
+int main()
+{
+    int n, i, h;
+
+    cout << "Enter number of bakery items: ";
+    cin >> n;
+
+    string bakery[n];
+
+    cout << "Enter item names: ";
+    for(i = 0; i < n; i++)
+    {
+        cin >> bakery[i];
+    }
+
+    cout << "Enter number of hours: ";
+    cin >> h;
+
+    h = h % n;
+
+    for(int j = 0; j < h; j++)
+    {
+        string temp = bakery[0];
+
+        for(i = 0; i < n - 1; i++)
+        {
+            bakery[i] = bakery[i + 1];
+        }
+
+        bakery[n - 1] = temp;
+    }
+
+    cout << "\nFinal display order: ";
+    for(i = 0; i < n; i++)
+    {
+        cout << bakery[i] << " ";
+    }
+ cout <<"\n 25DCE097";
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
