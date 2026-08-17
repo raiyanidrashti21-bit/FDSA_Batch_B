@@ -1,0 +1,31 @@
+[1]A bakery prepares n items every morning and places them in a display row. At the end of each hour, the leftmost item is moved to the rightmost position to 
+make room for fresh stock at the front. Given the initial row and the number of hours h, print the final display order.Describe the approach you used. How does 
+it behave when h is very large, say 10 million? Is there a way to get the correct result without performing the operation h times?
+Problem faced :
+-->At first, I did not understand how the items move after each hour.
+-->I was confused about which item should move first.
+-->It was difficult to keep the items in the correct order after every rotation.
+-->I first thought I had to repeat the process n times.
+-->I did not know that the same pattern repeats after some rotations.
+-->I had to think carefully about what happens when the number of hours is very large.
+
+[2]A library issues books to students and records each book's ID every time it is borrowed. At the end of the month, the librarian wants to find all books that
+were borrowed more than once,as those need priority restocking. Given the borrowing log, print all such book IDs.Describe the approach you used. How many times
+does your solution scan the data? If the library had 100,000 borrow records, would your approach still be practical? Can you think of away that requires 
+fewer passes?
+Problem faced :
+-->At first, I did not understand how to find the books that were borrowed more than one time.
+-->It was difficult to make sure the same book ID is not printed again and again.
+-->I had to think about how to check every book without missing any.
+-->I realized that checking every book with every other book can take more time.
+
+[3]A school newspaper editor wants to highlight the most impressive word from a submitted article on the front page. The word is chosen simply by length — the 
+longest one wins. Given a sentence, print the winning word and how many letters it has. Describe the approach you used. What does your solution do when two 
+words have the same length? Is that behavior intentional,and can you think of a way to handle it explicitly?
+Problem faced :
+-->At first, I did not know how to separate the sentence into different words.
+-->I was confused about how to compare the length of each word.
+-->It was difficult to keep track of the longest word while checking the sentence.
+-->I had to think about what should happen if two words have the same length.
+-->I had to make sure every word in the sentence is checked.
+-->I forgot to update the longest word after finding a bigger word, so the program printed the wrong result.
