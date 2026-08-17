@@ -1,0 +1,46 @@
+#include <iostream>
+using namespace std;
+int main()
+{  int n, i, j;
+   cout << "Enter number of borrow records: ";
+    cin >> n;
+  int book[n];
+    cout << "Enter book IDs: ";
+    for(i = 0; i < n; i++)
+    {
+        cin >> book[i];
+    }
+  cout << "\nBook IDs borrowed more than once are: ";
+    bool found = false;
+    for(i = 0; i < n; i++)
+    {
+        int count = 1;
+        bool alreadyPrinted = false;
+        for(j = 0; j < i; j++)
+        {
+            if(book[i] == book[j])
+            {
+                alreadyPrinted = true;
+                break;
+            }
+        }
+  if(alreadyPrinted)
+            continue;
+        for(j = i + 1; j < n; j++)
+        {
+            if(book[i] == book[j])
+            {
+                count++;
+            }
+        }     if(count > 1)
+        {
+            cout << book[i] << " ";
+            found = true;
+        }
+    }   if(!found)
+    {
+        cout << "None";
+    }
+     cout<<" \n 25DCE097";
+    return 0;
+}
