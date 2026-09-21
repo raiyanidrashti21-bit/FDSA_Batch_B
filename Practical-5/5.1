@@ -1,0 +1,128 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct Node {
+    string song;
+    Node* prev;
+    Node* next;
+
+    Node(string s) {
+        song = s;
+        prev = NULL;
+        next = NULL;
+    }
+};
+
+class Playlist {
+    Node* head;
+    Node* tail;
+
+public:
+    Playlist() {
+        head = NULL;
+        tail = NULL;
+    }
+
+    void insertBeginning(string song) {
+        Node* p = new Node(song);
+
+        if (head == NULL) {
+            head = tail = p;
+        } else {
+            p->next = head;
+            head->prev = p;
+            head = p;
+        }
+
+        display();
+    }
+
+    void insertEnd(string song) {
+        Node* p = new Node(song);
+
+        if (head == NULL) {
+            head = tail = p;
+        } else {
+            p->prev = tail;
+            tail->next = p;
+            tail = p;
+        }
+
+        display();
+    }
+
+    void insertAfter(string oldSong, string newSong) {
+        Node* temp = head;
+
+        while (temp != NULL && temp->song != oldSong) {
+            temp = temp->next;
+        }
+
+        if (temp == NULL) {
+            cout << "Song not found\n";
+            display();
+            return;
+        }
+
+        Node* p = new Node(newSong);
+
+        p->prev = temp;
+        p->next = temp->next;
+
+        if (temp->next != NULL)
+            temp->next->prev = p;
+        else
+            tail = p;
+
+        temp->next = p;
+
+        display();
+    }
+
+    void removeFirst() {
+        if (head == NULL) {
+            cout << "Playlist is empty\n";
+            return;
+        }
+
+        Node* temp = head;
+
+        if (head == tail) {
+            head = tail = NULL;
+        } else {
+            head = head->next;
+            head->prev = NULL;
+        }
+
+        delete temp;
+        display();
+    }
+
+    void display() {
+        Node* temp = head;
+        int count = 0;
+
+        cout << "Playlist: ";
+
+        while (temp != NULL) {
+            cout << temp->song << " ";
+            count++;
+            temp = temp->next;
+        }
+
+        cout << "\nSongs: " << count << "\n\n";
+    }
+};
+
+int main() {
+    Playlist p;
+
+    p.insertBeginning("Song1");
+    p.insertEnd("Song2");
+    p.insertEnd("Song3");
+    p.insertAfter("Song2", "Song4");
+    p.removeFirst();
+
+    return 0;
+}
