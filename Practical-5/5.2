@@ -1,0 +1,249 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct SNode {
+    string name;
+    SNode* next;
+
+    SNode(string n) {
+        name = n;
+        next = NULL;
+    }
+};
+
+class SinglyCircular {
+    SNode* head;
+
+public:
+    SinglyCircular() {
+        head = NULL;
+    }
+
+    void insert(string name, int pos) {
+        SNode* p = new SNode(name);
+
+        if (head == NULL) {
+            head = p;
+            p->next = head;
+            return;
+        }
+
+        if (pos == 1) {
+            SNode* last = head;
+
+            while (last->next != head)
+                last = last->next;
+
+            p->next = head;
+            head = p;
+            last->next = head;
+            return;
+        }
+
+        SNode* temp = head;
+
+        for (int i = 1; i < pos - 1; i++) {
+            if (temp->next == head)
+                break;
+
+            temp = temp->next;
+        }
+
+        p->next = temp->next;
+        temp->next = p;
+    }
+
+    void remove(string name) {
+        if (head == NULL)
+            return;
+
+        SNode* current = head;
+        SNode* previous = NULL;
+
+        do {
+            if (current->name == name) {
+
+                if (current == head) {
+                    SNode* last = head;
+
+                    while (last->next != head)
+                        last = last->next;
+
+                    if (last == head) {
+                        head = NULL;
+                    } else {
+                        head = head->next;
+                        last->next = head;
+                    }
+                } else {
+                    previous->next = current->next;
+                }
+
+                delete current;
+                return;
+            }
+
+            previous = current;
+            current = current->next;
+
+        } while (current != head);
+    }
+
+    void display() {
+        if (head == NULL) {
+            cout << "Circle is empty\n";
+            return;
+        }
+
+        SNode* temp = head;
+
+        do {
+            cout << temp->name << " ";
+            temp = temp->next;
+        } while (temp != head);
+
+        cout << endl;
+    }
+};
+
+struct DNode {
+    string name;
+    DNode* prev;
+    DNode* next;
+
+    DNode(string n) {
+        name = n;
+        prev = NULL;
+        next = NULL;
+    }
+};
+
+class DoublyCircular {
+    DNode* head;
+
+public:
+    DoublyCircular() {
+        head = NULL;
+    }
+
+    void insert(string name, int pos) {
+        DNode* p = new DNode(name);
+
+        if (head == NULL) {
+            head = p;
+            p->next = p;
+            p->prev = p;
+            return;
+        }
+
+        if (pos == 1) {
+            DNode* last = head->prev;
+
+            p->next = head;
+            p->prev = last;
+
+            last->next = p;
+            head->prev = p;
+
+            head = p;
+            return;
+        }
+
+        DNode* temp = head;
+
+        for (int i = 1; i < pos - 1; i++) {
+            if (temp->next == head)
+                break;
+
+            temp = temp->next;
+        }
+
+        p->next = temp->next;
+        p->prev = temp;
+
+        temp->next->prev = p;
+        temp->next = p;
+    }
+
+    void remove(string name) {
+        if (head == NULL)
+            return;
+
+        DNode* temp = head;
+
+        do {
+            if (temp->name == name) {
+
+                if (temp->next == temp) {
+                    head = NULL;
+                } else {
+                    temp->prev->next = temp->next;
+                    temp->next->prev = temp->prev;
+
+                    if (temp == head)
+                        head = temp->next;
+                }
+
+                delete temp;
+                return;
+            }
+
+            temp = temp->next;
+
+        } while (temp != head);
+    }
+
+    void display() {
+        if (head == NULL) {
+            cout << "Circle is empty\n";
+            return;
+        }
+
+        DNode* temp = head;
+
+        do {
+            cout << temp->name << " ";
+            temp = temp->next;
+        } while (temp != head);
+
+        cout << endl;
+    }
+};
+
+
+int main() {
+
+    cout << "Singly Circular List:\n";
+
+    SinglyCircular s;
+
+    s.insert("A", 1);
+    s.insert("B", 2);
+    s.insert("C", 3);
+    s.insert("D", 2);
+
+    s.display();
+
+    s.remove("C");
+
+    s.display();
+
+
+    cout << "\nDoubly Circular List:\n";
+
+    DoublyCircular d;
+
+    d.insert("A", 1);
+    d.insert("B", 2);
+    d.insert("C", 3);
+    d.insert("D", 2);
+
+    d.display();
+
+    d.remove("C");
+
+    d.display();
+
+    return 0;
+}
