@@ -1,0 +1,71 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* next;
+};
+
+int main() {
+    Node* front = NULL;
+    Node* rear = NULL;
+
+    int choice, value;
+
+    while (true) {
+        cout << "\n1. Arrive\n2. Attend\n3. Display Front\n4. Exit\n";
+        cout << "Enter choice: ";
+        cin >> choice;
+
+        if (choice == 1) {
+            cout << "Enter patient number: ";
+            cin >> value;
+
+            Node* newNode = new Node();
+            newNode->data = value;
+            newNode->next = NULL;
+
+            if (front == NULL) {
+                front = newNode;
+                rear = newNode;
+            } else {
+                rear->next = newNode;
+                rear = newNode;
+            }
+
+            cout << "Front patient: " << front->data << endl;
+        }
+        else if (choice == 2) {
+            if (front == NULL) {
+                cout << "Error: Ward is empty\n";
+            } else {
+                Node* temp = front;
+                front = front->next;
+
+                if (front == NULL)
+                    rear = NULL;
+
+                delete temp;
+
+                if (front == NULL)
+                    cout << "Ward is empty\n";
+                else
+                    cout << "Front patient: " << front->data << endl;
+            }
+        }
+        else if (choice == 3) {
+            if (front == NULL)
+                cout << "Ward is empty\n";
+            else
+                cout << "Front patient: " << front->data << endl;
+        }
+        else if (choice == 4) {
+            break;
+        }
+        else {
+            cout << "Invalid choice\n";
+        }
+    }
+
+    return 0;
+}
